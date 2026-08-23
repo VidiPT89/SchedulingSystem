@@ -1,0 +1,41 @@
+{
+  "name": "scheduling-system",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Appointment scheduling with services, calendar slots, email confirmation and a one-hour reminder, bilingual PT/EN.",
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "lint": "eslint",
+    "test": "tsx --test tests/*.test.ts",
+    "db:push": "prisma db push",
+    "db:seed": "tsx prisma/seed.ts",
+    "postinstall": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.13.0",
+    "date-fns": "^4.1.0",
+    "framer-motion": "^12.23.12",
+    "next": "16.3.2",
+    "nodemailer": "^7.0.5",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/nodemailer": "^6.4.17",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.2",
+    "prisma": "^6.13.0",
+    "tailwindcss": "^4",
+    "tsx": "^4.20.3",
+    "typescript": "^5"
+  }
+}

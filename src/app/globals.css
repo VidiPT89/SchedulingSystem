@@ -1,0 +1,112 @@
+@import 'tailwindcss';
+
+:root {
+  --ink: #050505;
+  --ember: #ff7a00;
+  --amber: #ffaa00;
+  --paper: #f4e6c8;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #050505;
+  color: var(--paper);
+  font-family: Karla, system-ui, sans-serif;
+}
+
+.display {
+  font-family: 'Barlow Condensed', Karla, sans-serif;
+}
+
+.sky {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 18% -8%, rgba(255, 122, 0, 0.22), transparent 42%),
+    radial-gradient(ellipse at 88% 8%, rgba(255, 170, 0, 0.12), transparent 38%),
+    linear-gradient(180deg, #050505 0%, #120800 100%);
+}
+
+.ember {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(42px);
+  opacity: 0.42;
+  animation: drift 16s ease-in-out infinite;
+}
+
+.e1 {
+  width: 260px;
+  height: 260px;
+  background: #ff7a00;
+  top: 10%;
+  left: -36px;
+}
+
+.e2 {
+  width: 200px;
+  height: 200px;
+  background: #ffaa00;
+  top: 48%;
+  right: -20px;
+  animation-delay: -6s;
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(18px, -24px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ember {
+    animation: none;
+  }
+}
+
+.field {
+  width: 100%;
+  border: 1px solid rgba(244, 230, 200, 0.18);
+  background: rgba(5, 5, 5, 0.55);
+  color: var(--paper);
+  padding: 0.7rem 0.85rem;
+  border-radius: 0.4rem;
+}
+
+.field:focus {
+  outline: 2px solid #ff7a00;
+  outline-offset: 1px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: linear-gradient(90deg, #ff7a00, #ffaa00);
+  color: #111;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.7rem 1.15rem;
+  cursor: pointer;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--paper);
+  border: 1px solid rgba(244, 230, 200, 0.28);
+}
