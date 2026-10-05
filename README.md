@@ -2,6 +2,8 @@
 
 > A bilingual atelier calendar for services with duration, open slots, email confirmation and a one-hour reminder, painted in the ividi.dev palette (black, burnt orange, amber).
 
+[![CI](https://github.com/VidiPT89/SchedulingSystem/actions/workflows/ci.yml/badge.svg)](https://github.com/VidiPT89/SchedulingSystem/actions/workflows/ci.yml)
+
 [🐞 Report Bug](https://github.com/VidiPT89/SchedulingSystem/issues) · [✨ Request Feature](https://github.com/VidiPT89/SchedulingSystem/issues)
 
 Scheduling System is a Next.js desk for booking timed services. Register a service and its duration, pick an open slot on the calendar, receive a confirmation email, and get a reminder one hour before. The admin desk lists services, appointments and the mail outbox. The UI is European Portuguese / English, with the language toggle remembered in `localStorage`.
