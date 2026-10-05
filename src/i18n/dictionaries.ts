@@ -10,6 +10,7 @@ export type Dictionary = {
   lead: string
   services: string
   duration: string
+  priceCents: string
   minutes: string
   pickDay: string
   pickSlot: string
@@ -35,8 +36,6 @@ export type Dictionary = {
   cancelled: string
   cancel: string
   empty: string
-  client: string
-  when: string
   delivered: string
   stored: string
 }
@@ -52,6 +51,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     lead: 'Serviços com duração fixa, slots livres no calendário, confirmação por e-mail e um lembrete uma hora antes.',
     services: 'Serviços',
     duration: 'Duração',
+    priceCents: 'Preço (cêntimos)',
     minutes: 'min',
     pickDay: 'Escolhe o dia',
     pickSlot: 'Slots livres',
@@ -77,8 +77,6 @@ export const dictionaries: Record<Locale, Dictionary> = {
     cancelled: 'Cancelada',
     cancel: 'Cancelar',
     empty: 'Ainda não há registos.',
-    client: 'Cliente',
-    when: 'Quando',
     delivered: 'Enviado',
     stored: 'Guardado',
   },
@@ -92,6 +90,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     lead: 'Services with a fixed duration, open calendar slots, email confirmation and a reminder one hour before.',
     services: 'Services',
     duration: 'Duration',
+    priceCents: 'Price (cents)',
     minutes: 'min',
     pickDay: 'Pick a day',
     pickSlot: 'Open slots',
@@ -117,8 +116,6 @@ export const dictionaries: Record<Locale, Dictionary> = {
     cancelled: 'Cancelled',
     cancel: 'Cancel',
     empty: 'Nothing here yet.',
-    client: 'Client',
-    when: 'When',
     delivered: 'Sent',
     stored: 'Stored',
   },

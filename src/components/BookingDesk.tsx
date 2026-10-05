@@ -162,6 +162,8 @@ export function BookingDesk() {
               key={slot.start}
               type="button"
               disabled={!slot.available}
+              title={slot.available ? undefined : t.taken}
+              aria-label={slot.available ? undefined : `${format(new Date(slot.start), 'HH:mm')} · ${t.taken}`}
               onClick={() => setPicked(slot.start)}
               className={`rounded-md px-2 py-2 text-sm ${
                 !slot.available

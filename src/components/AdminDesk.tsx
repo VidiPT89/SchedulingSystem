@@ -2,6 +2,7 @@
 
 import { useLocale } from '@/i18n/LocaleProvider'
 import { format } from 'date-fns'
+import { enGB, pt } from 'date-fns/locale'
 import { FormEvent, useEffect, useState } from 'react'
 
 type Service = {
@@ -141,8 +142,14 @@ export function AdminDesk() {
         <h2 className="display text-2xl text-[#ffaa00] md:col-span-2">{t.newService}</h2>
         <input className="field" placeholder={t.namePt} value={form.namePt} onChange={(e) => setForm({ ...form, namePt: e.target.value })} required />
         <input className="field" placeholder={t.nameEn} value={form.nameEn} onChange={(e) => setForm({ ...form, nameEn: e.target.value })} required />
-        <input className="field" type="number" min={15} step={15} value={form.durationMinutes} onChange={(e) => setForm({ ...form, durationMinutes: Number(e.target.value) })} />
-        <input className="field" type="number" min={0} value={form.priceCents} onChange={(e) => setForm({ ...form, priceCents: Number(e.target.value) })} />
+        <label className="grid gap-1 text-sm">
+          <span className="text-[#f4e6c8]/70">{t.duration} ({t.minutes})</span>
+          <input className="field" type="number" min={15} step={15} value={form.durationMinutes} onChange={(e) => setForm({ ...form, durationMinutes: Number(e.target.value) })} />
+        </label>
+        <label className="grid gap-1 text-sm">
+          <span className="text-[#f4e6c8]/70">{t.priceCents}</span>
+          <input className="field" type="number" min={0} value={form.priceCents} onChange={(e) => setForm({ ...form, priceCents: Number(e.target.value) })} />
+        </label>
         <input className="field md:col-span-2" placeholder={t.descPt} value={form.descriptionPt} onChange={(e) => setForm({ ...form, descriptionPt: e.target.value })} required />
         <input className="field md:col-span-2" placeholder={t.descEn} value={form.descriptionEn} onChange={(e) => setForm({ ...form, descriptionEn: e.target.value })} required />
         <button className="btn md:col-span-2">{t.save}</button>
@@ -170,7 +177,8 @@ export function AdminDesk() {
                   {a.customerName} · {a.customerEmail}
                 </p>
                 <p className="text-sm text-[#f4e6c8]/70">
-                  {locale === 'en' ? a.service.nameEn : a.service.namePt} · {format(new Date(a.startsAt), 'd MMM HH:mm')} · {a.status}
+                  {locale === 'en' ? a.service.nameEn : a.service.namePt} · {format(new Date(a.startsAt), 'd MMM HH:mm', { locale: locale === 'en' ? enGB : pt })} ·{' '}
+                  {a.status === 'confirmed' ? t.confirmed : a.status === 'cancelled' ? t.cancelled : a.status}
                   {a.reminderSentAt ? ` · ${t.reminder}` : ''}
                 </p>
               </div>
