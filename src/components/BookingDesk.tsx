@@ -44,12 +44,29 @@ export function BookingDesk() {
       })
   }, [])
 
+  // Changing service or day clears the picked slot while rendering, not in an effect.
+  const slotKey = `${serviceId}|${day}`
+  const [seenSlotKey, setSeenSlotKey] = useState(slotKey)
+  if (seenSlotKey !== slotKey) {
+    setSeenSlotKey(slotKey)
+    setPicked('')
+  }
+
   useEffect(() => {
     if (!serviceId) return
-    setPicked('')
-    void fetch(`/api/slots?serviceId=${serviceId}&day=${day}`)
+    // Switching days quickly must not let an older reply overwrite the newer day's slots.
+    let ignore = false
+    fetch(`/api/slots?serviceId=${serviceId}&day=${day}`)
       .then((r) => r.json())
-      .then((data: Slot[]) => setSlots(data))
+      .then((data: Slot[]) => {
+        if (!ignore) setSlots(data)
+      })
+      .catch(() => {
+        /* offline: keep the current slots */
+      })
+    return () => {
+      ignore = true
+    }
   }, [serviceId, day])
 
   const selected = services.find((s) => s.id === serviceId)

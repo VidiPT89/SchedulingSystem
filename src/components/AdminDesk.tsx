@@ -34,6 +34,26 @@ type Mail = {
   createdAt: string
 }
 
+type AdminData =
+  | { authed: false }
+  | { authed: true; services: Service[]; appointments: Appointment[]; mails: Mail[] }
+
+async function fetchAdmin(): Promise<AdminData> {
+  const [s, a, m, me] = await Promise.all([
+    fetch('/api/admin/services'),
+    fetch('/api/admin/appointments'),
+    fetch('/api/admin/outbox'),
+    fetch('/api/admin/session'),
+  ])
+  if (me.status === 401 || s.status === 401) return { authed: false }
+  return {
+    authed: true,
+    services: (await s.json()) as Service[],
+    appointments: (await a.json()) as Appointment[],
+    mails: (await m.json()) as Mail[],
+  }
+}
+
 export function AdminDesk() {
   const { t, locale } = useLocale()
   const [authed, setAuthed] = useState<boolean | null>(null)
@@ -50,25 +70,30 @@ export function AdminDesk() {
     descriptionEn: '',
   })
 
+  function apply(admin: AdminData) {
+    setAuthed(admin.authed)
+    if (!admin.authed) return
+    setServices(admin.services)
+    setAppointments(admin.appointments)
+    setMails(admin.mails)
+  }
+
   async function load() {
-    const [s, a, m, me] = await Promise.all([
-      fetch('/api/admin/services'),
-      fetch('/api/admin/appointments'),
-      fetch('/api/admin/outbox'),
-      fetch('/api/admin/session'),
-    ])
-    if (me.status === 401 || s.status === 401) {
-      setAuthed(false)
-      return
-    }
-    setAuthed(true)
-    setServices(await s.json())
-    setAppointments(await a.json())
-    setMails(await m.json())
+    apply(await fetchAdmin())
   }
 
   useEffect(() => {
-    void load()
+    let ignore = false
+    fetchAdmin()
+      .then((admin) => {
+        if (!ignore) apply(admin)
+      })
+      .catch(() => {
+        /* offline: stay on the sign-in form */
+      })
+    return () => {
+      ignore = true
+    }
   }, [])
 
   async function login(event: FormEvent) {
